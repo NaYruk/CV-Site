@@ -8,3 +8,5 @@ Choses a Faire :
 - prompt help
 - ajout de toutes les commandes
 - Finaliser le projet
+
+https://codesandbox.io/p/sandbox/crt-terminal-in-css-js-tlijm?file=%2Fstyle%2Fstyle.css%3A173%2C2-173%2C34&from-embed
