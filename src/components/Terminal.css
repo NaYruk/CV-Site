@@ -1,0 +1,128 @@
+
+@import '../styles/animations.css';
+
+@font-face {
+    font-family: 'TerminalFont';
+    src: url('fonts/Glass_TTY_VT220.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+/* ========================================
+   MONITOR - Le cadre extérieur du moniteur
+   ======================================== */
+.Monitor {
+  /* Taille du moniteur */
+  width: calc(100vw - 100px);
+  height: calc(100vh - 100px);
+
+  /* CADRE DU MONITEUR */
+  border: 25px solid #333;
+  border-radius: 10px;
+
+  /* Ombres autour du moniteur */
+  box-shadow:
+    0 10px 50px rgba(0, 0, 0, 0.8),
+    0 0 100px rgba(0, 255, 0, 0.2);
+
+  /* Pas de scroll */
+  overflow: hidden;
+  position: relative;
+}
+
+/* ========================================
+   SCREEN - L'écran CRT à l'intérieur
+   ======================================== */
+.Screen {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-color: #0a0a0a;
+  overflow: hidden;
+}
+
+/* Effet de scintillement sur l'écran */
+.Screen::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(18, 16, 16, 0.1);
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+  animation: flicker 0.15s infinite;
+}
+
+/* Scanlines CRT sur l'écran */
+.Screen::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 2;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+/* ========================================
+   TERMINAL - Le contenu du terminal
+   ======================================== */
+.Terminal {
+  animation: textShadow 1.6s infinite;
+  padding: 35px;
+  font-size: 2rem;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.output {
+    width: 100%;
+}
+
+.output p {
+    margin: 0 0 5px 0;           /* Petit espace entre les lignes */
+    padding: 0;
+    width: 100%;
+
+    /* Empêche le retour à la ligne */
+    white-space: nowrap;         /* Tout sur une seule ligne */
+    overflow: hidden;            /* Cache le débordement */
+    text-overflow: ellipsis;     /* Ajoute "..." à la fin */
+}
+
+.InputBox {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.InputBox input,
+.InputBox textarea {
+    border: none;              /* Enlève la bordure */
+    outline: none;             /* Enlève le contour bleu au focus */
+    background: transparent;   /* Fond transparent */
+    color: inherit;            /* Hérite la couleur du texte */
+    font-family: inherit;      /* Hérite la police */
+    font-size: inherit;        /* Hérite la taille */
+    flex: 1;                   /* Prend tout l'espace disponible */
+    animation: textShadow 1.6s infinite;
+    resize: none;              /* Empêche le redimensionnement manuel */
+    overflow: hidden;
+    min-height: 0.9em;
+    padding: 0 0 0 14px;
+    margin: 0;                 /* Pas de marge */
+    line-height: inherit;      /* Hérite la hauteur de ligne */
+    width: 100%;               /* Prend toute la largeur */
+    text-transform: uppercase;
+}

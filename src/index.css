@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css?family=VT323&display=swap");
+
+:root {
+  --color-bg: #0a0a0af6;
+  --color-text: #10db10f9;
+  --color-accent: #646cff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: "VT323", monospace;
+  text-transform: uppercase;
+}
