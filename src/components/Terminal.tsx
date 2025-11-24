@@ -1,13 +1,15 @@
 import './Terminal.css'
+import '../commands/commands.css';
 import '../commands/commands.tsx'
-import { useState, useRef, useEffect} from 'react'
+import { useState, useRef, useEffect } from 'react'
 import handleCommands from '../commands/commands.tsx'
 import clear from '../commands/clear.tsx'
-
+import printMessagesInTerminal from '../utils/loadingMessages.tsx'
+import type { HistoryItem } from '../types/HistoryItem'
 
 function Terminal() {
     const [input, setInput] = useState('')
-    const [history, setHistory] = useState<string[]>([])
+    const [history, setHistory] = useState<HistoryItem[]>([])
     const [isLoading, setIsLoading] = useState(true)
 
     const inputRef = useRef<HTMLInputElement>(null)
@@ -33,38 +35,13 @@ function Terminal() {
     }) 
 
 
-    // Calcule dynamiquement le nombre max de lignes
-    const [maxLines, setMaxLines] = useState(20)
-
-    useEffect(() => {
-        if (!terminalRef.current)
-            return
-        const calculateMaxLines = () => {
-            const terminalHeight = terminalRef.current!.clientHeight
-            console.log(terminalHeight)
-            const padding = 70 // 35px top + 35px bottom
-            const inputHeight = 50 // Hauteur approximative de l'input en px
-            const availableHeight = terminalHeight - padding - inputHeight
-
-            const lineHeight = 35 // Hauteur approximative de la ligne en px
-            const calculateMax = Math.floor(availableHeight / lineHeight)
-
-            setMaxLines(Math.max(2, calculateMax))
-        }
-
-        calculateMaxLines()
-
-        //Recalcule si la fenetre change de taille
-        window.addEventListener('resize', calculateMaxLines)
-        return () => window.removeEventListener('resize', calculateMaxLines)
-    }, [])
 
 
     // Messages de chargement au démarrage
     useEffect(() => {
         const loadingMessages = [
             'SECURITY RESET..........',
-            '....................',
+            /*'....................',
             '.............',
             '.',
             '.',
@@ -87,40 +64,10 @@ function Terminal() {
             '',
             '',
             '',
-            'WELCOME TO THE BEAUTIFUL INTERACTIF CV TERMINAL'
+            'WELCOME TO THE BEAUTIFUL INTERACTIF CV TERMINAL'*/
         ]
 
-        let totalDelay = 0
-        const typingSpeed = 50  // 50ms entre chaque lettre
-        const pauseBetweenLines = 300  // Pause entre les messages
-
-        loadingMessages.forEach((message) => {
-            if (message === '') {
-                // Pour les lignes vides
-                setTimeout(() => {
-                    setHistory(prev => [...prev, ''])
-                }, totalDelay)
-                totalDelay += 200
-            } else {
-                setTimeout(() => {
-                    setHistory(prev => [...prev, ''])
-                }, totalDelay)
-
-                // Ensuite, pour chaque lettre du message
-                for (let i = 0; i <= message.length; i++) {
-                    setTimeout(() => {
-                        const currentText = message.slice(0, i)
-                        setHistory(prev => {
-                            const newHistory = [...prev]
-                            newHistory[newHistory.length - 1] = currentText
-                            return newHistory
-                        })
-                    }, totalDelay + (i * typingSpeed))
-                }
-
-                totalDelay += (message.length * typingSpeed) + pauseBetweenLines
-            }
-        })
+        const totalDelay = printMessagesInTerminal(setHistory, loadingMessages, 50)
 
         setTimeout(() => {
             setIsLoading(false)
@@ -159,20 +106,23 @@ function Terminal() {
     }, [isLoading])
 
 
+    // Fonction wrapper pour setHistory
+    const setHistoryWithLimit = (newHistory: HistoryItem[] | ((prev: HistoryItem[]) => HistoryItem[])) => {
+        setHistory(newHistory)
+    }
+
+
     // EVENT ENTER, new prompt line.
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         if (input.trim()) {
-            const isCommand = handleCommands(input, setHistory, history) // LANCE LE TRAITEMENT DES COMMANDES
-            if (!isCommand) {
-                const newHistory = [...history, `> ${input}`]
-                // Garde seulement les dernières MAX_LINES lignes
-                if (newHistory.length > maxLines) {
-                    setHistory(newHistory.slice(-maxLines))
-                } else {
-                    setHistory(newHistory)
-                }
-            }
+            // Ajouter la commande/input à l'historique
+            setHistory(prev => [...prev, `> ${input}`])
+
+            // Puis exécuter la commande avec le wrapper
+            setIsLoading(true)
+            handleCommands(input, setHistoryWithLimit, history)
+            setIsLoading(false)
             setInput('')
         }
     }
@@ -183,18 +133,40 @@ function Terminal() {
                 <div className="Terminal" ref={terminalRef}>
                     <div className="scanline"></div>
                     <div className="output">
-                        {history.map((line, i) => (
-                            <p key={i}>
-                                {line}
-                                {isLoading && i === history.length - 1 && <span className="cursor">■</span>}
-                            </p>
-                        ))}
+                        {history.map((line, i) => {
+                            // Si c'est un string
+                            if (typeof line === 'string') {
+                                return (
+                                    <p key={i}>
+                                        {line}
+                                        {isLoading && i === history.length - 1 && <span className="cursor">■</span>}
+                                    </p>
+                                )
+                            }
+                            // Si c'est un objet avec text et className
+                            if (typeof line === 'object' && line !== null && 'text' in line) {
+                                return (
+                                    <p key={i} className={(line as any).className}>
+                                        {(line as any).text}
+                                        {isLoading && i === history.length - 1 && <span className="cursor">■</span>}
+                                    </p>
+                                )
+                            }
+                            // Si c'est un ReactNode (liens, etc)
+                            return (
+                                <p key={i}>
+                                    {line}
+                                </p>
+                            )
+                        })}
                     </div>
                     <form className='InputBox' onSubmit={handleSubmit}>
-                        {!isLoading && <span>{'> '}</span>}
                         <div className="input-wrapper">
-                            <span className="input-text">{input}</span>
-                            {!isLoading && <span className="cursor">■</span>}
+                            <span className="input-text">
+                                {!isLoading && '> '}
+                                {input}
+                                {!isLoading && <span className="cursor">■</span>}
+                            </span>
                             <input
                                 ref={inputRef}
                                 type="text"

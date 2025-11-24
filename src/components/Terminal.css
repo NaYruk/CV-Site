@@ -113,17 +113,20 @@
     margin: 0 0 5px 0;           /* Petit espace entre les lignes */
     padding: 0;
     width: 100%;
+    color: #00ff00;              /* Couleur verte par défaut */
 
-    /* Empêche le retour à la ligne */
-    white-space: nowrap;         /* Tout sur une seule ligne */
-    overflow: hidden;            /* Cache le débordement */
-    text-overflow: ellipsis;     /* Ajoute "..." à la fin */
+    /* Permet le retour à la ligne */
+    white-space: normal;         /* Texte se plie sur plusieurs lignes */
+    word-break: break-word;      /* Casse les mots trop longs */
+    overflow: visible;           /* Montre tout le contenu */
+    text-overflow: clip;         /* Coupe proprement sans "..." */
 }
 
 .InputBox {
     display: flex;
     align-items: flex-start;
     width: 100%;
+    flex-shrink: 0;
 }
 
 /* Wrapper qui contient texte + curseur + input caché */
@@ -131,15 +134,18 @@
     position: relative;
     flex: 1;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    flex-wrap: wrap;               /* Permet le retour à la ligne */
 }
 
 /* Le texte visible que vous tapez */
 .input-text {
-    white-space: pre;              /* Préserve les espaces */
+    white-space: normal;           /* Permet le retour à la ligne */
+    word-break: break-word;        /* Casse les mots longs */
     animation: textShadow 1.6s infinite;
     text-transform: uppercase;
-    margin-left: 18px;              /* Espace entre le > et le texte */
+    display: inline;               /* Texte inline pour que curseur suive */
+    flex-basis: 100%;              /* Force le wrap */
 }
 
 /* Le curseur carré clignotant */
@@ -175,4 +181,24 @@
     font-family: inherit;
     font-size: inherit;
     z-index: 10;                   /* Au-dessus pour recevoir les clics */
+}
+
+/* ========================================
+   STYLES POUR LES LIENS
+   ======================================== */
+
+a {
+    color: #00ff00;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #ffff00;
+    text-decoration: underline;
+}
+
+a:active {
+    color: #ff00ff;
 }

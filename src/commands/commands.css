@@ -1,0 +1,106 @@
+/* ========================================
+   CLASSES POUR LES COMMANDES
+   ======================================== */
+
+/* Couleur et taille pour HELP */
+.output p.help-text {
+    color: #ff8800 !important;
+}
+
+/* Couleur et taille pour WHOAMI */
+.output p.whoami-text {
+    color: #ffff00 !important;
+}
+
+/* Couleur et taille pour EDUCATION */
+.output p.education-text {
+    color: #00ffff !important;
+}
+
+/* Couleur et taille pour PROJECTS */
+.output p.projects-title {
+    color: #c4c4c4 !important;
+}
+
+.output p.projects-text {
+    color: #08c6f5 !important;
+}
+
+/* Couleur et taille pour SOCIALS */
+.output p.socials-text {
+    color: #ff0000 !important;
+}
+
+/* Couleur et taille pour DATE */
+.output p.date-text {
+    color: #00ff00 !important;
+}
+
+/* Couleur et taille pour ECHO */
+.output p.echo-text {
+    color: #ffffff !important;
+}
+
+/* Couleur et taille pour TREE */
+.output p.tree-text {
+    color: #ffff00 !important;
+}
+
+/* Couleur et taille pour MATRIX */
+.output p.matrix-text {
+    color: #00ff00 !important;
+    font-weight: bold;
+    text-shadow: 0 0 5px #00ff00;
+}
+
+/* Couleur et taille pour HACK */
+.output p.hack-text {
+    color: #ff6600 !important;
+}
+
+/* Couleur et taille pour CRASH */
+.output p.crash-text {
+    color: #ffffff !important;
+    background-color: #0000aa;
+    padding: 0;
+    margin: 0 0 0 0 !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.05em;
+    white-space: pre !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+}
+
+/* ========================================
+   STYLES POUR LES LIENS DANS LES COMMANDES
+   ======================================== */
+
+/* Liens avec la classe projects-title */
+.output p a.projects-title {
+    color: #c4c4c4 !important;
+    text-decoration: none;
+}
+
+.output p a.projects-title:hover {
+    color: #ffffff !important;
+    text-decoration: underline;
+}
+
+.output p a.projects-title:active {
+    color: #ffff00 !important;
+}
+
+/* Liens avec la classe socials-text */
+.output p a.socials-text {
+    color: #ff0000 !important;
+    text-decoration: none;
+}
+
+.output p a.socials-text:hover {
+    color: #ffff00 !important;
+    text-decoration: underline;
+}
+
+.output p a.socials-text:active {
+    color: #ff00ff !important;
+}
