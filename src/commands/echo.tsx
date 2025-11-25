@@ -12,7 +12,7 @@ function echo(input: string, setHistory: React.Dispatch<React.SetStateAction<His
     }
 
     const echoPrompt: HistoryItem[] = [echoText]
-    printMessagesInTerminal(setHistory, echoPrompt, 20, 'echo-text')
+    printMessagesInTerminal(setHistory, echoPrompt, 20, 300, 'echo-text')
 }
 
 export default echo

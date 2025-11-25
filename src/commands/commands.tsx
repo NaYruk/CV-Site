@@ -8,9 +8,7 @@ import projects from './projects.tsx'
 import date from './date.tsx'
 import echo from './echo.tsx'
 import tree from './tree.tsx'
-import matrix from './matrix.tsx'
 import hack from './hack.tsx'
-import crash from './crash.tsx'
 import type { HistoryItem } from '../types/HistoryItem'
 
 function handleCommands(input: string, setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>>, history: HistoryItem[]): boolean
@@ -48,16 +46,8 @@ function handleCommands(input: string, setHistory: React.Dispatch<React.SetState
             tree(setHistory)
             return true
 
-        case "MATRIX":
-            matrix(setHistory)
-            return true
-
         case "HACK":
             hack(setHistory)
-            return true
-
-        case "CRASH":
-            crash(setHistory)
             return true
 
         default:

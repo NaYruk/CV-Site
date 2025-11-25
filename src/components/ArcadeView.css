@@ -1,0 +1,166 @@
+/* ========================================
+   ARCADE ROOM - La salle qui contient la borne
+   ======================================== */
+.arcade-room {
+    width: 100vw;
+    height: 100vh;
+    /* Gradient sombre par-dessus l'image pour l'assombrir */
+    background:
+        linear-gradient(135deg, rgba(10, 10, 10, 0.8) 0%, rgba(26, 26, 26, 0.9) 100%),
+        url('/ArcadeBackground.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1500px;
+    overflow: hidden;
+}
+
+/* ========================================
+   ARCADE MACHINE CONTAINER - Contient l'image et l'écran
+   ======================================== */
+.arcade-machine-container {
+    position: relative;
+    width: auto;
+    max-width: 90vw;
+    max-height: 90vh;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    transform-style: preserve-3d;
+    filter: drop-shadow(0 20px 60px rgba(0, 255, 0, 0.3));
+}
+
+.arcade-machine-container:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 20px 80px rgba(0, 255, 0, 0.5));
+}
+
+/* Image de la borne */
+.arcade-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    position: relative;
+    z-index: 10;  /* Passe devant l'écran overlay (qui est à z-index: 1 par défaut) */
+}
+
+/* ========================================
+   ÉCRAN OVERLAY - L'écran interactif par-dessus l'image
+   ======================================== */
+.arcade-screen-overlay {
+    position: absolute;
+    /* Ajustez ces valeurs selon la position de l'écran dans votre image */
+    top: 28.2%;           /* Distance depuis le haut */
+    left: 50%;
+    transform: translateX(-50%);
+
+    /* Taille de l'écran - à ajuster selon votre image */
+    width: 42%;
+    height: 23%;
+
+    /* Style de l'écran CRT */
+    background: #0a0a0a;
+
+    /* Courbure de l'écran CRT vintage (effet bombé) */
+    border-radius: 10%;  /* Courbe elliptique - ajustez selon vos besoins */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow:
+        inset 0 0 50px rgba(0, 255, 0, 0.2),
+        0 0 30px rgba(0, 255, 0, 0.1),
+        /* Ombres supplémentaires pour accentuer la courbure */
+        inset 0 10px 20px rgba(0, 0, 0, 0.5),
+        inset 0 -10px 20px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+
+    /* Bordure pour simuler le cadre de l'écran */
+    border: 3px solid #333;
+}
+
+/* Effet scanline sur l'écran overlay */
+.arcade-screen-overlay::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%,
+        rgba(0, 0, 0, 0.25) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Contenu de l'écran */
+.screen-content {
+    text-align: center;
+    z-index: 1;
+    font-family: 'TerminalFont', monospace;
+}
+
+.arcade-title {
+    font-size: 3rem;
+    color: #00ff00;
+    margin: 0 0 10px 0;
+    text-shadow:
+        0 0 10px #00ff00,
+        0 0 20px #00ff00,
+        0 0 30px #00ff00;
+}
+
+.arcade-subtitle {
+    font-size: 1.5rem;
+    color: #00cc00;
+    margin: 0 0 40px 0;
+    text-shadow: 0 0 10px #00cc00;
+}
+
+.blink-text {
+    font-size: 1.2rem;
+    color: #ffff00;
+    animation: blink 1.5s infinite;
+    text-shadow: 0 0 10px #ffff00;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+
+/* ========================================
+   ANIMATION DE ZOOM
+   ======================================== */
+@keyframes zoomToScreen {
+    0% {
+        transform: scale(1) translateZ(0) translateY(0);
+        opacity: 1;
+    }
+    40% {
+        transform: scale(1) translateZ(0) translateY(15%);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(6) translateZ(2500px) translateY(15%);
+        opacity: 1;
+    }
+}
+
+.arcade-machine-container.zooming {
+    animation: zoomToScreen 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    pointer-events: none;
+}
+
+.arcade-machine-container.zooming .arcade-screen-overlay {
+    box-shadow:
+        inset 0 0 100px rgba(0, 255, 0, 0.5),
+        0 0 100px rgba(0, 255, 0, 0.5);
+}

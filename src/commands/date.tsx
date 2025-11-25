@@ -15,7 +15,7 @@ function date(setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>>) {
     })
 
     const datePrompt: HistoryItem[] = [dateString]
-    printMessagesInTerminal(setHistory, datePrompt, 20, 'date-text')
+    printMessagesInTerminal(setHistory, datePrompt, 20, 300, 'date-text')
 }
 
 export default date

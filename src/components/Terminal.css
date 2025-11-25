@@ -18,13 +18,8 @@
   height: calc(100vh - 100px);
 
   /* CADRE DU MONITEUR */
-  border: 25px solid #333;
-  border-radius: 10px;
-
-  /* Ombres autour du moniteur */
-  box-shadow:
-    0 10px 50px rgba(0, 0, 0, 0.8),
-    0 0 100px rgba(0, 255, 0, 0.2);
+  border: 35px solid #2D363B;
+  border-radius: 100px;
 
   /* Pas de scroll */
   overflow: hidden;
@@ -103,10 +98,23 @@
   height: 100%;
   position: relative;
   z-index: 1;
+
+  /* Structure flex pour gérer output + input */
+  display: flex;
+  flex-direction: column;
 }
 
 .output {
     width: 100%;
+
+    /* Gestion du scroll */
+    overflow-y: auto;           /* Scroll vertical si nécessaire */
+    overflow-x: hidden;         /* Pas de scroll horizontal */
+    flex: 1;                    /* Prend tout l'espace disponible */
+
+    /* Scrollbar personnalisée (style CRT) - Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: #00ff00 #1a1a1a;
 }
 
 .output p {
@@ -116,10 +124,33 @@
     color: #00ff00;              /* Couleur verte par défaut */
 
     /* Permet le retour à la ligne */
-    white-space: normal;         /* Texte se plie sur plusieurs lignes */
+    white-space: pre-wrap;       /* Préserve espaces + wrap automatique */
+    word-wrap: break-word;       /* Compatibilité anciens navigateurs */
     word-break: break-word;      /* Casse les mots trop longs */
+    overflow-wrap: break-word;   /* Standard moderne */
     overflow: visible;           /* Montre tout le contenu */
     text-overflow: clip;         /* Coupe proprement sans "..." */
+}
+
+/* Scrollbar personnalisée - Chrome, Safari, Edge (Webkit) */
+.output::-webkit-scrollbar {
+    width: 8px;
+}
+
+.output::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 4px;
+}
+
+.output::-webkit-scrollbar-thumb {
+    background: #00ff00;
+    border-radius: 4px;
+    box-shadow: inset 0 0 6px rgba(0, 255, 0, 0.3);
+}
+
+.output::-webkit-scrollbar-thumb:hover {
+    background: #00cc00;
+    box-shadow: inset 0 0 6px rgba(0, 255, 0, 0.5);
 }
 
 .InputBox {
@@ -127,6 +158,12 @@
     align-items: flex-start;
     width: 100%;
     flex-shrink: 0;
+
+    /* Garde le prompt visible en bas */
+    position: sticky;
+    bottom: 0;
+    background: #141313;      /* Même couleur que le Screen */
+    padding-top: 10px;        /* Petit espace avec l'output */
 }
 
 /* Wrapper qui contient texte + curseur + input caché */
@@ -202,3 +239,4 @@ a:hover {
 a:active {
     color: #ff00ff;
 }
+

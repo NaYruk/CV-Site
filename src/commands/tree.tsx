@@ -22,7 +22,7 @@ function tree(setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>>) {
         '└── README.md',
     ]
 
-    printMessagesInTerminal(setHistory, treePrompt, 15, 'tree-text')
+    printMessagesInTerminal(setHistory, treePrompt, 15, 10,   'tree-text')
 }
 
 export default tree

@@ -26,16 +26,9 @@ function help(setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>>): 
         '',
         '',
         '',
-        '=== COMMANDES AMUSANTES ===',
-        'matrix:     effet matrix avec caractères aléatoires',
-        'hack:       simuler une intrusion système',
-        'crash:      écran bleu Windows (BSOD)',
-        '',
-        '',
-        ''
     ]
 
-    printMessagesInTerminal(setHistory, helpPrompt, 5, 'help-text')
+    printMessagesInTerminal(setHistory, helpPrompt, 5, 10, 'help-text')
 }
 
 export default help

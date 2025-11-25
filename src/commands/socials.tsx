@@ -18,7 +18,7 @@ function socials(setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>>
         '',
     ]
 
-    printMessagesInTerminal(setHistory, socialsPrompt, 20, 'socials-text')
+    printMessagesInTerminal(setHistory, socialsPrompt, 20, 10, 'socials-text')
 }
 
 export default socials

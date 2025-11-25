@@ -12,12 +12,12 @@ function projects(setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>
         '',
         '',
     ]
-    let delay = printMessagesInTerminal(setHistory, projectsPrompt, 5, 'projects-text')
+    let delay = printMessagesInTerminal(setHistory, projectsPrompt, 5, 10, 'projects-text')
 
     const TICFETitle: HistoryItem[] = [
         <a key="https://github.com/TICFE-DJANGO/TICFE" href="https://github.com/TICFE-DJANGO/TICFE" target="_blank" className="projects-title">TICFE ASSIST ⚡:</a>
     ]
-    delay = printMessagesInTerminal(setHistory, TICFETitle, 5, 'projects-title', delay)
+    delay = printMessagesInTerminal(setHistory, TICFETitle, 5, 10, 'projects-title', delay)
 
     const TICFEPrompt: HistoryItem[] = [
         'description: ',
@@ -30,7 +30,7 @@ function projects(setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>
         '',
         '',
     ]
-    delay = printMessagesInTerminal(setHistory, TICFEPrompt, 5, 'projects-text', delay)
+    delay = printMessagesInTerminal(setHistory, TICFEPrompt, 5, 10, 'projects-text', delay)
 
 
 
@@ -38,7 +38,7 @@ function projects(setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>
     const MINISHELLTitle: HistoryItem[] = [
         <a key="https://github.com/NaYruk/Minishell" href="https://github.com/NaYruk/Minishell" target="_blank" className="projects-title">MINISHELL 📟 :</a>
     ]
-    delay = printMessagesInTerminal(setHistory, MINISHELLTitle, 5, 'projects-title', delay)
+    delay = printMessagesInTerminal(setHistory, MINISHELLTitle, 5, 10, 'projects-title', delay)
 
     const MINISHELLPrompt: HistoryItem[] = [
         'description: ',
@@ -49,7 +49,7 @@ function projects(setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>
         '',
         '',
     ]
-    delay = printMessagesInTerminal(setHistory, MINISHELLPrompt, 5, 'projects-text', delay)
+    delay = printMessagesInTerminal(setHistory, MINISHELLPrompt, 5, 10, 'projects-text', delay)
 
 
 
@@ -57,7 +57,7 @@ function projects(setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>
     const CUB3DTitle: HistoryItem[] = [
         <a key="https://github.com/SefgaultBros/Cub3D" href="https://github.com/SefgaultBros/Cub3D" target="_blank" className="projects-title">CUB3D 🪖 :</a>
     ]
-    delay = printMessagesInTerminal(setHistory, CUB3DTitle, 5, 'projects-title', delay)
+    delay = printMessagesInTerminal(setHistory, CUB3DTitle, 5, 10, 'projects-title', delay)
 
     const CUB3DPrompt: HistoryItem[] = [
         'description: ',
@@ -69,7 +69,7 @@ function projects(setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>
         '',
         '',
     ]
-    delay = printMessagesInTerminal(setHistory, CUB3DPrompt, 5, 'projects-text', delay)
+    delay = printMessagesInTerminal(setHistory, CUB3DPrompt, 5, 10, 'projects-text', delay)
 
 
 
@@ -80,7 +80,7 @@ function projects(setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>
         '',
         '',
     ]
-    printMessagesInTerminal(setHistory, FINALTitle, 5, 'projects-title', delay)
+    printMessagesInTerminal(setHistory, FINALTitle, 5, 10, 'projects-title', delay)
 }
 
 export default projects

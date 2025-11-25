@@ -25,7 +25,7 @@ function education(setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]
         ''
     ]
 
-    printMessagesInTerminal(setHistory, educationPrompt, 10, 'education-text')
+    printMessagesInTerminal(setHistory, educationPrompt, 10, 50, 'education-text')
 }
 
 export default education

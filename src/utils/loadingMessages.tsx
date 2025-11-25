@@ -20,11 +20,11 @@ function printMessagesInTerminal(
     setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>>,
     messagesInArray: HistoryItem[],
     typingSpeed: number,
+    pauseBetweenLines: number, // Pause entre les messages
     className?: string,
     initialDelay: number = 0
 ) {
     let totalDelay = initialDelay
-    const pauseBetweenLines = 300  // Pause entre les messages
 
     messagesInArray.forEach((message) => {
         // Handle empty strings
