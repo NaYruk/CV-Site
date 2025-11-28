@@ -2,15 +2,16 @@ import '../components/Terminal.tsx'
 import type { HistoryItem } from '../types/HistoryItem'
 
 // Helper function to extract text content from a React element
-function getElementText(element: any): string {
+function getElementText(element: unknown): string {
     if (typeof element === 'string') return element
-    if (!element || !element.props) return ''
+    if (!element || typeof element !== 'object' || !('props' in element)) return ''
 
-    const { children } = element.props
+    const elementWithProps = element as { props?: { children?: unknown } }
+    const { children } = elementWithProps.props || {}
     if (typeof children === 'string') return children
     if (Array.isArray(children)) {
         return children
-            .map((child: any) => getElementText(child))
+            .map((child: unknown) => getElementText(child))
             .join('')
     }
     return ''
@@ -54,7 +55,8 @@ function printMessagesInTerminal(
                         const lastItem = newHistory[newHistory.length - 1]
 
                         if (typeof lastItem === 'object' && lastItem !== null && 'text' in lastItem) {
-                            (lastItem as any).text = currentText
+                            const lastItemObj = lastItem as { text: string; className?: string }
+                            lastItemObj.text = currentText
                         } else {
                             newHistory[newHistory.length - 1] = className
                                 ? { text: currentText, className }
@@ -97,7 +99,8 @@ function printMessagesInTerminal(
                             // During animation, show text with className if available
                             if (className) {
                                 if (typeof lastItem === 'object' && lastItem !== null && 'text' in lastItem) {
-                                    (lastItem as any).text = currentText
+                                    const lastItemObj = lastItem as { text: string; className?: string }
+                                    lastItemObj.text = currentText
                                 } else {
                                     newHistory[newHistory.length - 1] = { text: currentText, className }
                                 }

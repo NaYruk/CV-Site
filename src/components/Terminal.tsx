@@ -29,21 +29,38 @@ interface TerminalProps {
 
 function Terminal({ onExit, isUnzooming = false, hasBootedOnce = false, onBootComplete }: TerminalProps) {
     const [input, setInput] = useState('')
-    const [history, setHistory] = useState<HistoryItem[]>([])
-    const [commandHistory, setCommandHistory] = useState<string[]>([]) // Historiques des commandes tapees
+    const [history, setHistory] = useState<HistoryItem[]>(hasBootedOnce ? [
+        '',
+        '> System ready. Type "help" to view available commands.',
+        '',
+    ] : [])
+    const [commandHistory, setCommandHistory] = useState<string[]>(() => {
+        const saved = localStorage.getItem('commandHistory')
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved)
+                if (Array.isArray(parsed)) {
+                    return parsed
+                }
+            } catch (err) {
+                console.log('Error loading command history:', err)
+            }
+        }
+        return []
+    }) // Historiques des commandes tapees
     const [historyIndex, setHistoryIndex] = useState<number>(-1) // Position dans l'historique
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(!hasBootedOnce)
 
     const inputRef = useRef<HTMLInputElement>(null)
     const terminalRef = useRef<HTMLDivElement>(null)
     const outputRef = useRef<HTMLDivElement>(null)
+    const firstPageLoadRef = useRef(false)
 
     // Remet le focus sur l'input après chaque changement
-    let firstPageLoad = false
     useEffect(() => {
         inputRef.current?.focus()
-        firstPageLoad = true
-    }, [history, firstPageLoad === false])
+        firstPageLoadRef.current = true
+    }, [history])
 
     // Permet de garder le focus sur l'input malgrer le fait de cliquer a cote
     useEffect(() => {
@@ -104,14 +121,6 @@ function Terminal({ onExit, isUnzooming = false, hasBootedOnce = false, onBootCo
                 // Marquer que le boot est terminé
                 onBootComplete?.()
             }, totalDelay + 1000)
-        } else {
-            // Déjà booté (retour de l'arcade) - juste afficher le message d'accueil
-            setIsLoading(false)
-            setHistory([
-                '',
-                '> System ready. Type "help" to view available commands.',
-                '',
-            ])
         }
 
         // Nettoyage du timeout si le composant est démonté
@@ -120,7 +129,7 @@ function Terminal({ onExit, isUnzooming = false, hasBootedOnce = false, onBootCo
                 clearTimeout(timeoutId)
             }
         }
-    }, [])
+    }, [hasBootedOnce, onBootComplete])
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -150,21 +159,6 @@ function Terminal({ onExit, isUnzooming = false, hasBootedOnce = false, onBootCo
             window.removeEventListener("keydown", handleKeyDown);
         };
     }, [isLoading])
-
-    // Charger l'historique des commandes depuis localStorage au démarrage
-    useEffect(() => {
-        const saved = localStorage.getItem('commandHistory')
-        if (saved) {
-            try {
-                const parsed = JSON.parse(saved)
-                if (Array.isArray(parsed)) {
-                    setCommandHistory(parsed)
-                }
-            } catch (err) {
-                console.log('Error loading command history:', err)
-            }
-        }
-    }, [])
 
     // Sauvegarder l'historique des commandes dans localStorage à chaque changement
     useEffect(() => {
@@ -302,9 +296,10 @@ function Terminal({ onExit, isUnzooming = false, hasBootedOnce = false, onBootCo
                             }
                             // Si c'est un objet avec text et className
                             if (typeof line === 'object' && line !== null && 'text' in line) {
+                                const lineObj = line as { text: string; className?: string }
                                 return (
-                                    <p key={i} className={(line as any).className}>
-                                        {(line as any).text}
+                                    <p key={i} className={lineObj.className}>
+                                        {lineObj.text}
                                         {isLoading && i === history.length - 1 && <span className="cursor">■</span>}
                                     </p>
                                 )
