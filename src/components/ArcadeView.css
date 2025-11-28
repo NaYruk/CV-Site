@@ -7,7 +7,7 @@
     /* Gradient sombre par-dessus l'image pour l'assombrir */
     background:
         linear-gradient(135deg, rgba(10, 10, 10, 0.8) 0%, rgba(26, 26, 26, 0.9) 100%),
-        url('../../public/img/ArcadeBackground.jpg');
+        url('/img/ArcadeBackground.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

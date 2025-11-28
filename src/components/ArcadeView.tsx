@@ -21,7 +21,7 @@ function ArcadeView({ onStart, isZooming = false }: ArcadeViewProps) {
             >
                 {/* Image de la borne en arrière-plan */}
                 <img
-                    src="../../public/img/terminalArcade.png"
+                    src="/img/terminalArcade.png"
                     alt="Arcade Cabinet"
                     className="arcade-image"
                 />
