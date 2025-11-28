@@ -11,7 +11,7 @@ import tree from './tree.tsx'
 import hack from './hack.tsx'
 import type { HistoryItem } from '../types/HistoryItem'
 
-function handleCommands(input: string, setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>>, history: HistoryItem[]): boolean
+function handleCommands(input: string, setHistory: React.Dispatch<React.SetStateAction<HistoryItem[]>>): boolean
 {
     switch (input.toUpperCase()) {
         case "CLEAR":
@@ -23,7 +23,7 @@ function handleCommands(input: string, setHistory: React.Dispatch<React.SetState
             return true
         
         case "WHOAMI":
-            whoami(setHistory, history)
+            whoami(setHistory)
             return true
         
         case "EDUCATION":

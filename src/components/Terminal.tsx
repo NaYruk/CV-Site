@@ -266,7 +266,7 @@ function Terminal({ onExit, isUnzooming = false, hasBootedOnce = false, onBootCo
             setHistoryIndex(-1)
 
             // Puis exécuter la commande avec le wrapper
-            handleCommands(input, setHistoryWithLimit, history)
+            handleCommands(input, setHistoryWithLimit)
             setInput('')
         }
     }
