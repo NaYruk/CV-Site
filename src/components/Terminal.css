@@ -3,7 +3,7 @@
 
 @font-face {
     font-family: 'TerminalFont';
-    src: url('fonts/perfect_dos_vga_437_win.ttf');
+    src: url('/fonts/perfect_dos_vga_437_win.ttf');
     font-weight: 400;
     font-style: normal;
 }
