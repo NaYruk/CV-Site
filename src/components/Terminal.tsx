@@ -62,6 +62,8 @@ function Terminal({ onExit, isUnzooming = false, hasBootedOnce = false, onBootCo
 
     // Messages de chargement au démarrage (seulement la première fois)
     useEffect(() => {
+        let timeoutId: number | null = null
+
         if (!hasBootedOnce) {
             // Premier boot - afficher les messages de chargement
             const loadingMessages = [
@@ -91,7 +93,7 @@ function Terminal({ onExit, isUnzooming = false, hasBootedOnce = false, onBootCo
 
             const totalDelay = printMessagesInTerminal(setHistory, loadingMessages, 10, 10)
 
-            setTimeout(() => {
+            timeoutId = setTimeout(() => {
                 setIsLoading(false)
                 setHistory(prev => [
                     ...prev,
@@ -110,6 +112,13 @@ function Terminal({ onExit, isUnzooming = false, hasBootedOnce = false, onBootCo
                 '> System ready. Type "help" to view available commands.',
                 '',
             ])
+        }
+
+        // Nettoyage du timeout si le composant est démonté
+        return () => {
+            if (timeoutId) {
+                clearTimeout(timeoutId)
+            }
         }
     }, [])
 
@@ -270,6 +279,13 @@ function Terminal({ onExit, isUnzooming = false, hasBootedOnce = false, onBootCo
 
     return (
         <div className={`Monitor ${isUnzooming ? 'unzooming' : ''}`}>
+            {/* Message d'avertissement pour très petits écrans */}
+            <div className="terminal-size-warning">
+                <p>📱</p>
+                <p>Écran trop petit</p>
+                <p>Veuillez tourner votre appareil en mode paysage ou utiliser un écran plus grand</p>
+            </div>
+
             <div className="Screen">
                 <div className="Terminal" ref={terminalRef}>
                     <div className="scanline"></div>

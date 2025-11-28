@@ -40,7 +40,9 @@
 /* Image de la borne */
 .arcade-image {
     width: 100%;
-    height: auto;
+    height: 100%;
+    max-width: 100%;
+    max-height: 90vh;
     display: block;
     object-fit: contain;
     position: relative;
@@ -53,13 +55,16 @@
 .arcade-screen-overlay {
     position: absolute;
     /* Ajustez ces valeurs selon la position de l'écran dans votre image */
-    top: 28.2%;           /* Distance depuis le haut */
+    top: 23%;           /* Distance depuis le haut */
     left: 50%;
     transform: translateX(-50%);
 
-    /* Taille de l'écran - à ajuster selon votre image */
+    /* Taille de l'écran - responsive */
     width: 42%;
-    height: 23%;
+    aspect-ratio: 1 / 1;  /* Garde un carré parfait */
+
+    /* Définit une taille de base pour les em */
+    font-size: 1rem;
 
     /* Style de l'écran CRT */
     background: #0a0a0a;
@@ -104,12 +109,22 @@
     text-align: center;
     z-index: 1;
     font-family: 'TerminalFont', monospace;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 8%;
+    overflow: hidden;  /* Empêche le débordement */
 }
 
 .arcade-title {
-    font-size: 3rem;
+    font-size: 2em;  /* Réduit de 2.5em à 2em */
     color: #00ff00;
-    margin: 0 0 10px 0;
+    margin: 0 0 0.2em 0;
+    line-height: 0.9;
+    white-space: nowrap;  /* Empêche le retour à la ligne */
     text-shadow:
         0 0 10px #00ff00,
         0 0 20px #00ff00,
@@ -117,16 +132,20 @@
 }
 
 .arcade-subtitle {
-    font-size: 1.5rem;
+    font-size: 0.9em;  /* Réduit de 1.2em à 0.9em */
     color: #00cc00;
-    margin: 0 0 40px 0;
+    margin: 0 0 0.8em 0;
+    line-height: 1;
+    white-space: nowrap;
     text-shadow: 0 0 10px #00cc00;
 }
 
 .blink-text {
-    font-size: 1.2rem;
+    font-size: 0.7em;  /* Réduit de 1em à 0.7em */
     color: #ffff00;
     animation: blink 1.5s infinite;
+    line-height: 1;
+    white-space: nowrap;
     text-shadow: 0 0 10px #ffff00;
 }
 
@@ -163,4 +182,408 @@
     box-shadow:
         inset 0 0 100px rgba(0, 255, 0, 0.5),
         0 0 100px rgba(0, 255, 0, 0.5);
+}
+
+/* ========================================
+   MESSAGE D'AVERTISSEMENT - Très petits écrans
+   ======================================== */
+.screen-size-warning {
+    display: none; /* Caché par défaut */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    color: #00ff00;
+    font-family: 'TerminalFont', monospace;
+}
+
+.screen-size-warning p:first-child {
+    font-size: 4rem;
+    margin: 0 0 20px 0;
+}
+
+.screen-size-warning p:nth-child(2) {
+    font-size: 1.5rem;
+    margin: 0 0 10px 0;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+.screen-size-warning p:last-child {
+    font-size: 1rem;
+    color: #00cc00;
+    max-width: 300px;
+    line-height: 1.5;
+}
+
+/* Affiche le message uniquement sur très petits écrans */
+@media (max-height: 380px) {
+    .screen-size-warning {
+        display: flex;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - Borne d'arcade (HAUTEUR)
+   ======================================== */
+
+/* Très grands écrans (> 1200px) */
+@media (min-height: 1201px) {
+    .arcade-machine-container {
+        max-height: 90vh;
+    }
+    .arcade-image {
+        max-height: 90vh;
+    }
+    .arcade-screen-overlay {
+        font-size: 0.9rem;  /* Réduit de 1rem */
+        top: 23%;
+    }
+}
+
+/* Grands écrans (≤ 1200px) */
+@media (max-height: 1200px) {
+    .arcade-machine-container {
+        max-height: 88vh;
+    }
+    .arcade-image {
+        max-height: 88vh;
+    }
+    .arcade-screen-overlay {
+        font-size: 0.85rem;
+    }
+}
+
+/* Desktop standard (≤ 1000px) */
+@media (max-height: 1000px) {
+    .arcade-machine-container {
+        max-height: 85vh;
+    }
+    .arcade-image {
+        max-height: 85vh;
+    }
+    .arcade-screen-overlay {
+        font-size: 0.75rem;
+    }
+}
+
+/* Écrans courts (≤ 900px) */
+@media (max-height: 900px) {
+    .arcade-machine-container {
+        max-height: 82vh;
+    }
+    .arcade-image {
+        max-height: 82vh;
+    }
+    .arcade-screen-overlay {
+        font-size: 0.7rem;
+    }
+}
+
+/* Écrans moyens (≤ 850px) */
+@media (max-height: 850px) {
+    .arcade-machine-container {
+        max-height: 80vh;
+    }
+    .arcade-image {
+        max-height: 80vh;
+    }
+    .arcade-screen-overlay {
+        font-size: 0.65rem;
+    }
+}
+
+/* Tablettes (≤ 800px) */
+@media (max-height: 800px) {
+    .arcade-machine-container {
+        max-height: 78vh;
+    }
+    .arcade-image {
+        max-height: 78vh;
+    }
+    .arcade-screen-overlay {
+        font-size: 0.6rem;
+        top: 23.5%;
+    }
+}
+
+/* Tablettes moyennes (≤ 750px) */
+@media (max-height: 750px) {
+    .arcade-machine-container {
+        max-height: 75vh;
+    }
+    .arcade-image {
+        max-height: 75vh;
+    }
+    .arcade-screen-overlay {
+        font-size: 0.55rem;
+        top: 24%;
+    }
+}
+
+/* Tablettes courtes (≤ 700px) */
+@media (max-height: 700px) {
+    .arcade-machine-container {
+        max-height: 72vh;
+    }
+    .arcade-image {
+        max-height: 72vh;
+    }
+    .arcade-screen-overlay {
+        font-size: 0.5rem;
+        top: 24%;
+    }
+}
+
+/* Petites tablettes (≤ 650px) */
+@media (max-height: 650px) {
+    .arcade-machine-container {
+        max-height: 68vh;
+    }
+    .arcade-image {
+        max-height: 68vh;
+    }
+    .arcade-screen-overlay {
+        font-size: 0.48rem;
+        top: 24%;
+    }
+}
+
+/* Smartphones paysage (≤ 600px) */
+@media (max-height: 600px) {
+    .arcade-machine-container {
+        max-height: 66vh;
+    }
+    .arcade-image {
+        max-height: 66vh;
+    }
+    .arcade-screen-overlay {
+        font-size: 0.45rem;
+        top: 24.5%;
+    }
+}
+
+/* Smartphones paysage moyens (≤ 550px) */
+@media (max-height: 550px) {
+    .arcade-machine-container {
+        max-height: 64vh;
+    }
+    .arcade-image {
+        max-height: 64vh;
+    }
+    .arcade-screen-overlay {
+        font-size: 0.42rem;
+        top: 25%;
+    }
+}
+
+/* Smartphones paysage courts (≤ 500px) */
+@media (max-height: 500px) {
+    .arcade-machine-container {
+        max-height: 60vh;
+    }
+    .arcade-image {
+        max-height: 60vh;
+    }
+    .arcade-screen-overlay {
+        font-size: 0.38rem;
+        top: 25%;
+    }
+}
+
+/* Très petits smartphones paysage (≤ 480px) */
+@media (max-height: 480px) {
+    .arcade-machine-container {
+        max-height: 58vh;
+    }
+    .arcade-image {
+        max-height: 58vh;
+    }
+    .arcade-screen-overlay {
+        font-size: 0.35rem;
+        top: 25%;
+    }
+}
+
+/* Écrans ultra courts (≤ 450px) */
+@media (max-height: 450px) {
+    .arcade-machine-container {
+        max-height: 56vh;
+    }
+    .arcade-image {
+        max-height: 56vh;
+    }
+    .arcade-screen-overlay {
+        font-size: 0.32rem;
+        top: 25%;
+    }
+}
+
+/* Écrans extrêmement courts (≤ 420px) */
+@media (max-height: 420px) {
+    .arcade-machine-container {
+        max-height: 54vh;
+    }
+    .arcade-image {
+        max-height: 54vh;
+    }
+    .arcade-screen-overlay {
+        font-size: 0.3rem;
+        top: 25.5%;
+    }
+}
+
+/* Écrans minuscules (≤ 400px) */
+@media (max-height: 400px) {
+    .arcade-machine-container {
+        max-height: 52vh;
+    }
+    .arcade-image {
+        max-height: 52vh;
+    }
+    .arcade-screen-overlay {
+        font-size: 0.28rem;
+        top: 26%;
+    }
+}
+
+/* Écrans critiques (≤ 380px) - Juste avant le warning */
+@media (max-height: 380px) and (min-height: 381px) {
+    .arcade-machine-container {
+        max-height: 50vh;
+    }
+    .arcade-image {
+        max-height: 50vh;
+    }
+    .arcade-screen-overlay {
+        font-size: 0.25rem;
+        top: 26%;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - Borne d'arcade (LARGEUR)
+   Note: Ne PAS mettre de font-size ici, seulement la largeur
+   ======================================== */
+
+/* Desktop large (≤ 1920px) */
+@media (max-width: 1920px) {
+    .arcade-machine-container {
+        max-width: 90vw;
+    }
+}
+
+/* Desktop standard (≤ 1440px) */
+@media (max-width: 1440px) {
+    .arcade-machine-container {
+        max-width: 92vw;
+    }
+}
+
+/* Laptop (≤ 1024px) */
+@media (max-width: 1024px) {
+    .arcade-machine-container {
+        max-width: 93vw;
+    }
+}
+
+/* Tablettes (≤ 900px) */
+@media (max-width: 900px) {
+    .arcade-machine-container {
+        max-width: 94vw;
+    }
+}
+
+/* Tablettes moyennes (≤ 768px) */
+@media (max-width: 768px) {
+    .arcade-machine-container {
+        max-width: 95vw;
+    }
+}
+
+/* Petites tablettes (≤ 600px) */
+@media (max-width: 600px) {
+    .arcade-machine-container {
+        max-width: 96vw;
+    }
+}
+
+/* Smartphones (≤ 480px) */
+@media (max-width: 480px) {
+    .arcade-machine-container {
+        max-width: 97vw;
+    }
+}
+
+/* Petits smartphones (≤ 414px - iPhone XR) */
+@media (max-width: 414px) {
+    .arcade-machine-container {
+        max-width: 97vw;
+    }
+}
+
+/* Petits smartphones (≤ 375px - iPhone SE) */
+@media (max-width: 375px) {
+    .arcade-machine-container {
+        max-width: 98vw;
+    }
+}
+
+/* Très petits smartphones (≤ 360px) */
+@media (max-width: 360px) {
+    .arcade-machine-container {
+        max-width: 98vw;
+    }
+}
+
+/* Mini smartphones (≤ 320px) */
+@media (max-width: 320px) {
+    .arcade-machine-container {
+        max-width: 99vw;
+    }
+}
+
+/* ========================================
+   RESPONSIVE COMBINÉ (Largeur + Hauteur)
+   ======================================== */
+
+/* Smartphones portrait standard (375x667 - iPhone SE) */
+@media (max-width: 375px) and (max-height: 667px) {
+    .arcade-screen-overlay {
+        top: 24%;
+    }
+}
+
+/* Smartphones portrait moyens (414x896 - iPhone XR) */
+@media (max-width: 414px) and (max-height: 896px) {
+    .arcade-screen-overlay {
+        top: 23.5%;
+    }
+}
+
+/* Tablettes portrait (768x1024 - iPad) */
+@media (max-width: 768px) and (max-height: 1024px) {
+    .arcade-screen-overlay {
+        top: 23%;
+    }
+}
+
+/* Smartphones paysage très courts */
+@media (max-width: 900px) and (max-height: 420px) {
+    .arcade-machine-container {
+        max-height: 55vh;
+    }
+    .arcade-image {
+        max-height: 55vh;
+    }
+    .arcade-screen-overlay {
+        top: 25%;
+    }
 }

@@ -8,6 +8,13 @@ interface ArcadeViewProps {
 function ArcadeView({ onStart, isZooming = false }: ArcadeViewProps) {
     return (
         <div className="arcade-room">
+            {/* Message d'avertissement pour très petits écrans */}
+            <div className="screen-size-warning">
+                <p>📱</p>
+                <p>Écran trop petit</p>
+                <p>Veuillez tourner votre appareil en mode paysage ou utiliser un écran plus grand</p>
+            </div>
+
             <div
                 className={`arcade-machine-container ${isZooming ? 'zooming' : ''}`}
                 onClick={!isZooming ? onStart : undefined}
