@@ -175,14 +175,6 @@ npm run build
 # Le dossier dist/ contient les fichiers optimisés prêts pour le déploiement
 ```
 
-## 🎓 Contexte Éducatif
-
-Ce portfolio a été créé dans le cadre de la formation à [École 42 Mulhouse](https://42mulhouse.fr/), démontrant :
-- Maîtrise de React et TypeScript
-- Créativité dans le design UI/UX
-- Capacité à créer des expériences utilisateur immersives
-- Compétences en développement front-end moderne
-
 ## 👨‍💻 Auteur
 
 **Marc Milliot**
@@ -194,16 +186,6 @@ Ce portfolio a été créé dans le cadre de la formation à [École 42 Mulhouse
 - [GitHub](https://github.com/NaYruk)
 - [LinkedIn](https://www.linkedin.com/in/marc-milliot-a61651383)
 - [Instagram](https://www.instagram.com/marc.milliot)
-
-## 📄 Licence
-
-Ce projet est sous licence MIT - voir le fichier LICENSE pour plus de détails.
-
-## 🙏 Remerciements
-
-- École 42 Mulhouse pour la formation
-- Inspirations : terminaux Unix, bornes d'arcade vintage
-- Communauté React et TypeScript
 
 ---
 
