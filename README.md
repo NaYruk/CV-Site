@@ -8,6 +8,9 @@
 
 ## ✨ Caractéristiques
 
+### Lien vers le Site :
+- https://terminal-mmilliot.netlify.app/
+  
 ### 🎮 Interface Double Vue
 - **Vue Arcade** : Une borne d'arcade nostalgique avec effet de zoom cinématique
 - **Terminal Interactif** : Un terminal Unix-like entièrement fonctionnel
