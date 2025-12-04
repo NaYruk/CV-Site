@@ -1,0 +1,6 @@
+services:
+  #service 1 : Frontend
+  frontend:
+    build: .
+    ports:
+      - "3000:80"

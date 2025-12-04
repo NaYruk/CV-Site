@@ -1,0 +1,42 @@
+# === Dependances ===
+#On les installe proprement dans Docker avec npm ci
+node_module/
+npm-debug.log*
+
+# === Build Local ===
+# On build dans Docker
+dist/
+build/
+
+#=== Git ===
+.git/
+.gitignore
+
+# === Docker ===
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# === Documentation ===
+README.md
+DOCKER_LEARNING_PLAN.md
+*.md
+
+# === IDE ===
+.vscode/
+.idea/
+.claude/
+*.swp
+*.swo
+.DS_Store
+
+# === Environnement ===
+.env
+.env.local
+.env.*.local
+
+# === Tests ===
+coverage/
+
+# === Logs ===
+*.log
