@@ -1,0 +1,14 @@
+{
+	"name": "cv-site-backend",
+	"version": "1.0.0",
+	"description": "Backend API pour le CV interactif",
+	"type": "module",
+	"scripts": {
+		"start": "node src/index.js",
+		"dev": "node --watch src/index.js"
+	},
+	"dependencies": {
+		"express": "^5.2.1",
+		"cors": "^2.8.5"
+	}
+}

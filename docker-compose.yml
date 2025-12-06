@@ -1,6 +1,39 @@
 services:
   #service 1 : Frontend
   frontend:
-    build: .
+    container_name: cv-site-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      cache_from:
+        - cv-site:latest
+    restart: unless-stopped
     ports:
       - "3000:80"
+    #Healthcheck pour vérifier que Nginx répond
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+
+  #service 2 : Backend
+  backend:
+    container_name: cv-site-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "5001:5001"
+    environment:
+      - NODE_ENV=production
+      - PORT=5001
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:5001/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
